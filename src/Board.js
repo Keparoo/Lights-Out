@@ -86,7 +86,7 @@ const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 					{board.map((r) => (
 						<tr>
 							{r.map((c) => (
-								<Cell flipCellsAroundMe={flipCellsAround} isLit={true} />
+								<Cell flipCellsAroundMe={flipCellsAround} isLit={c} />
 							))}
 						</tr>
 					))}
