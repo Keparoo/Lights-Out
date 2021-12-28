@@ -34,6 +34,14 @@ const Board = ({ nrows, ncols, chanceLightStartsOn }) => {
 	const createBoard = () => {
 		let initialBoard = [];
 		// TODO: create array-of-arrays of true/false values
+		for (let row = 0; row < nrows; row++) {
+			initialBoard[row] = new Array();
+		}
+		for (let row = 0; row < nrows; row++) {
+			for (let col = 0; col < ncols; col++) {
+				initialBoard[row].push(Math.random() > chanceLightStartsOn);
+			}
+		}
 		return initialBoard;
 	};
 
