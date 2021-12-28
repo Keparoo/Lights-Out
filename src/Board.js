@@ -27,15 +27,13 @@ import './Board.css';
  *
  **/
 
-const Board = ({ nrows, ncols, chanceLightStartsOn }) => {
-	const [ board, setBoard ] = useState(createBoard());
-
+const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 	/** create a board nrows high/ncols wide, each cell randomly lit or unlit */
 	const createBoard = () => {
 		let initialBoard = [];
 		// create array-of-arrays of true/false values
 		for (let row = 0; row < nrows; row++) {
-			initialBoard[row] = new Array();
+			initialBoard[row] = [];
 		}
 		for (let row = 0; row < nrows; row++) {
 			for (let col = 0; col < ncols; col++) {
@@ -75,13 +73,27 @@ const Board = ({ nrows, ncols, chanceLightStartsOn }) => {
 		});
 	};
 
+	const [ board, setBoard ] = useState(createBoard());
+	console.log(board);
+
 	// if the game is won, just show a winning msg & render nothing else
 
-	// TODO
-
-	// make table board
-
-	// TODO
+	return (
+		<div>
+			<h1>Lights Out</h1>
+			<table className="Board">
+				<tbody>
+					{board.map((r) => (
+						<tr>
+							{r.map((c) => (
+								<Cell flipCellsAroundMe={flipCellsAround} isLit={true} />
+							))}
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+	);
 };
 
 export default Board;
