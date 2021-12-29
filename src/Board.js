@@ -81,10 +81,14 @@ const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 			<h1>Lights Out</h1>
 			<table className="Board">
 				<tbody>
-					{board.map((r) => (
-						<tr>
-							{r.map((c) => (
-								<Cell flipCellsAroundMe={flipCellsAround} isLit={c} />
+					{board.map((r, y) => (
+						<tr key={r}>
+							{r.map((c, x) => (
+								<Cell
+									flipCellsAroundMe={flipCellsAround}
+									isLit={c}
+									key={y + '-' + x}
+								/>
 							))}
 						</tr>
 					))}
