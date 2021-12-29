@@ -31,11 +31,9 @@ const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 	/** create a board nrows high/ncols wide, each cell randomly lit or unlit */
 	const createBoard = () => {
 		let initialBoard = [];
-		// create array-of-arrays of true/false values
+
 		for (let row = 0; row < nrows; row++) {
 			initialBoard[row] = [];
-		}
-		for (let row = 0; row < nrows; row++) {
 			for (let col = 0; col < ncols; col++) {
 				initialBoard[row].push(Math.random() > chanceLightStartsOn);
 			}
