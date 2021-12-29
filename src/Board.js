@@ -43,12 +43,7 @@ const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 
 	const hasWon = () => {
 		// Return true if player has won, else return false
-		for (let row = 0; row < board.length; row++) {
-			for (let col = 0; col < board[row].length; col++) {
-				if (board[row[col]]) return false;
-			}
-		}
-		return true;
+		return board.every((row) => row.every((cell) => !cell));
 	};
 
 	const flipCellsAround = (coord) => {
@@ -63,11 +58,18 @@ const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 				}
 			};
 
-			// TODO: Make a (deep) copy of the oldBoard
+			// Make a (deep) copy of the oldBoard
+			const newBoard = oldBoard.map((row) => [ ...row ]);
 
-			// TODO: in the copy, flip this cell and the cells around it
+			// flip this cell and the cells around it
+			flipCell(y, x, newBoard);
+			flipCell(y - 1, x, newBoard);
+			flipCell(y, x - 1, newBoard);
+			flipCell(y + 1, x, newBoard);
+			flipCell(y, x + 1, newBoard);
 
-			// TODO: return the copy
+			// return the copy
+			return newBoard;
 		});
 	};
 
@@ -75,6 +77,7 @@ const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 	console.log(board);
 
 	// if the game is won, just show a winning msg & render nothing else
+	if (hasWon()) return <div>You Win!</div>;
 
 	return (
 		<div>
@@ -82,10 +85,10 @@ const Board = ({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) => {
 			<table className="Board">
 				<tbody>
 					{board.map((r, y) => (
-						<tr key={r}>
+						<tr key={y}>
 							{r.map((c, x) => (
 								<Cell
-									flipCellsAroundMe={flipCellsAround}
+									flipCellsAroundMe={() => flipCellsAround(y + '-' + x)}
 									isLit={c}
 									key={y + '-' + x}
 								/>
